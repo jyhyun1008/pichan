@@ -70,6 +70,11 @@ if (accessToken && appSecret) {
                 .then((MentionData) => {return MentionData.json()})
                 .then((MentionRes) => {
                     console.log(MentionRes)
+                    if (MentionRes.length == 0) {
+                        setTimeout(() => {
+                            location.href = 'https://yeojibur.in/pichan/'
+                        }, 10000);
+                    }
                     for (var j=0; j<MentionRes.length; j++) {
                         if (MentionRes[j].type == 'mention') {
                             var noteText = MentionRes[j].note.text
