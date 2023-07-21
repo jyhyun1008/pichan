@@ -137,76 +137,79 @@ if (accessToken && appSecret) {
                             } else if (mention.type == 'reply') {
                                 var noteText = mention.note.text
                                 var noteId = mention.note.id
-                                var noteContextUrl = 'https://'+host+'/api/notes/conversation'
-                                var noteContextParam = {
-                                    method: 'POST',
-                                    headers: {
-                                        'content-type': 'application/json',
-                                    },
-                                    body: JSON.stringify({
-                                        limit: 100,
-                                        noteId: noteId
+                                if (mention.note.repliesCount == 0) {
+
+                                    var noteContextUrl = 'https://'+host+'/api/notes/conversation'
+                                    var noteContextParam = {
+                                        method: 'POST',
+                                        headers: {
+                                            'content-type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            limit: 100,
+                                            noteId: noteId
+                                        })
+                                    }
+                                    fetch(noteContextUrl, noteContextParam)
+                                    .then((contextData) => {return contextData.json()})
+                                    .then((contextRes) => {
+                                        var contextRole = []
+                                        var contextMsg = []
+                                        for (var j = 0; j<contextRes.length; j++) {
+                                            if (contextRes[j].user.username == 'pi') {
+                                                contextRole.push('assistant')
+                                            } else {
+                                                contextRole.push('user')
+                                            }
+                                            contextMsg.push(contextRes[j].text)
+                                        }
+                                        var msgs = [{"role": "system", "content": "Your name is '파이'. you are a helpful, knowledge sharing chatbot. You can also listen to and sympathize with other people's concerns. You are against discrimination and hatred of gender, political orientation, religion, LGBTQ, race, etc., and you do not make any discriminatory and hateful remarks. You don't say anything sexual or violent, and you treat people kindly and sympathetically. You only speak Korean and Japanese, also Chinese, but if you are asked to translate some sentences to other languages, you can speak that languages."}]
+                                        for (var j = contextRes.length - 1; j >= 0; j--) {
+                                            msgs.push({"role": contextRole[j], "content": contextMsg[j]})
+                                        }
+                                        msgs.push({"role": 'user', "content": noteText})
+                                        console.log(msgs)
+                                        var sendChatUrl = 'https://api.openai.com/v1/chat/completions'
+                                        var sendChatParam = {
+                                            body: JSON.stringify({
+                                                "model": "gpt-3.5-turbo", 
+                                                "messages": msgs, 
+                                                "temperature": 0.86,
+                                                "max_tokens": 512}),
+                                            method: "POST",
+                                            headers: {
+                                                "content-type": "application/json",
+                                                Authorization: "Bearer " + authCode,
+                                            }
+                                        }
+                                        fetch(sendChatUrl, sendChatParam)
+                                        .then((chatData) => {return chatData.json()})
+                                        .then((chatRes) => {
+                                            console.log(chatRes)
+                                            if (chatRes.choices) {
+                                                var response = chatRes.choices[0].message.content
+                                                var replyUrl = 'https://'+host+'/api/notes/create'
+                                                var replyParam = {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'content-type': 'application/json',
+                                                    },
+                                                    body: JSON.stringify({
+                                                        i: i,
+                                                        replyId: noteId,
+                                                        text: response
+                                                    }),
+                                                    credentials: 'omit'
+                                                }
+                                                fetch(replyUrl, replyParam)
+                                                .then((replyData) => {return replyData.json()})
+                                                .then((replyRes) => {})
+                                                .catch((error) => console.log(error));
+                                            }
+                                        })
+                                        .catch((error) => console.log(error));
                                     })
                                 }
-                                fetch(noteContextUrl, noteContextParam)
-                                .then((contextData) => {return contextData.json()})
-                                .then((contextRes) => {
-                                    var contextRole = []
-                                    var contextMsg = []
-                                    for (var j = 0; j<contextRes.length; j++) {
-                                        if (contextRes[j].user.username == 'pi') {
-                                            contextRole.push('assistant')
-                                        } else {
-                                            contextRole.push('user')
-                                        }
-                                        contextMsg.push(contextRes[j].text)
-                                    }
-                                    var msgs = [{"role": "system", "content": "Your name is '파이'. you are a helpful, knowledge sharing chatbot. You can also listen to and sympathize with other people's concerns. You are against discrimination and hatred of gender, political orientation, religion, LGBTQ, race, etc., and you do not make any discriminatory and hateful remarks. You don't say anything sexual or violent, and you treat people kindly and sympathetically. You only speak Korean and Japanese, also Chinese, but if you are asked to translate some sentences to other languages, you can speak that languages."}]
-                                    for (var j = contextRes.length - 1; j >= 0; j--) {
-                                        msgs.push({"role": contextRole[j], "content": contextMsg[j]})
-                                    }
-                                    msgs.push({"role": 'user', "content": noteText})
-                                    console.log(msgs)
-                                    var sendChatUrl = 'https://api.openai.com/v1/chat/completions'
-                                    var sendChatParam = {
-                                        body: JSON.stringify({
-                                            "model": "gpt-3.5-turbo", 
-                                            "messages": msgs, 
-                                            "temperature": 0.86,
-                                            "max_tokens": 512}),
-                                        method: "POST",
-                                        headers: {
-                                            "content-type": "application/json",
-                                            Authorization: "Bearer " + authCode,
-                                        }
-                                    }
-                                    fetch(sendChatUrl, sendChatParam)
-                                    .then((chatData) => {return chatData.json()})
-                                    .then((chatRes) => {
-                                        console.log(chatRes)
-                                        if (chatRes.choices) {
-                                            var response = chatRes.choices[0].message.content
-                                            var replyUrl = 'https://'+host+'/api/notes/create'
-                                            var replyParam = {
-                                                method: 'POST',
-                                                headers: {
-                                                    'content-type': 'application/json',
-                                                },
-                                                body: JSON.stringify({
-                                                    i: i,
-                                                    replyId: noteId,
-                                                    text: response
-                                                }),
-                                                credentials: 'omit'
-                                            }
-                                            fetch(replyUrl, replyParam)
-                                            .then((replyData) => {return replyData.json()})
-                                            .then((replyRes) => {})
-                                            .catch((error) => console.log(error));
-                                        }
-                                    })
-                                    .catch((error) => console.log(error));
-                                })
                             } else if (mention.type == 'follow') {
                                 var userId = mention.userId
                                 var followUrl = 'https://'+host+'/api/following/create'
