@@ -70,7 +70,6 @@ if (accessToken && appSecret) {
                 .then((MentionData) => {return MentionData.json()})
                 .then((MentionRes) => {
                     console.log(MentionRes)
-                    var j = -1;
                     if (MentionRes.length == 0) {
                         setTimeout(() => {
                             location.href = 'https://yeojibur.in/pichan/'
@@ -85,7 +84,7 @@ if (accessToken && appSecret) {
                             setTimeout(() => {
                                 location.href = 'https://yeojibur.in/pichan/'
                             }, 10000);
-                          }
+                        }
                           
                         async function func(mention){
                             if (mention.type == 'mention') {
