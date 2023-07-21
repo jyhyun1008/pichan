@@ -77,8 +77,6 @@ if (accessToken && appSecret) {
                         }, 10000);
                     } else {
 
-                        sendMention(MentionRes)
-
                         const sendMention = async (MentionRes) => {
                             for (const mention of MentionRes) {
                               await delay()
@@ -140,12 +138,7 @@ if (accessToken && appSecret) {
                             })
                         }
 
-                        function mention(MentionRes, j) {
-
-                            
-
-                        }
-
+                        sendMention(MentionRes)
                     }
                 })
                 .catch((error) => console.log(error));
