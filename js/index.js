@@ -77,68 +77,66 @@ if (accessToken && appSecret) {
                         }, 10000);
                     } else {
 
-                        const sendMention = async (MentionRes) => {
-                            for (const mention of MentionRes) {
-                              await delay()
-                                .then(() => {
-                                    
-                                    if (mention.type == 'mention') {
-                                        var noteText = mention.note.text
-                                        var noteId = mention.note.id
-                                        if (mention.note.repliesCount == 0) {
-                                            var prompt = `you are a helpful, knowledge sharing chatbot. Your name is '파이'. I say: ${noteText}. You reply:`
-                                            var sendChatUrl = 'https://api.openai.com/v1/completions'
-                                            var sendChatParam = {
-                                                body: JSON.stringify({
-                                                    "model": "text-davinci-003", 
-                                                    "prompt": prompt, 
-                                                    "temperature": 0.86, 
-                                                    "max_tokens": 256}),
-                                                method: "POST",
-                                                headers: {
-                                                    "content-type": "application/json",
-                                                    Authorization: "Bearer " + authCode,
-                                                }
-                                            }
-                                            fetch(sendChatUrl, sendChatParam)
-                                            .then((chatData) => {return chatData.json()})
-                                            .then((chatRes) => {
-                                                console.log(chatRes)
-                                                if (chatRes.choices) {
-                                                    var response = chatRes.choices[0].text.trim()
-                                                    var replyUrl = 'https://'+host+'/api/notes/create'
-                                                    var replyParam = {
-                                                        method: 'POST',
-                                                        headers: {
-                                                            'content-type': 'application/json',
-                                                        },
-                                                        body: JSON.stringify({
-                                                            i: i,
-                                                            replyId: noteId,
-                                                            text: response
-                                                        }),
-                                                        credentials: 'omit'
-                                                    }
-                                                    fetch(replyUrl, replyParam)
-                                                    .then((replyData) => {return replyData.json()})
-                                                    .then((replyRes) => {})
-                                                    .catch((error) => console.log(error));
-                                                }
-                                            })
-                                            .catch((error) => console.log(error));
+                        async function replyMention(MentionRes) {
+                            MentionRes.forEach(async (mention) => {
+                              await func(mention);
+                            })
+
+                            setTimeout(() => {
+                                location.href = 'https://yeojibur.in/pichan/'
+                            }, 10000);
+                          }
+                          
+                        async function func(mention){
+                            if (mention.type == 'mention') {
+                                var noteText = mention.note.text
+                                var noteId = mention.note.id
+                                if (mention.note.repliesCount == 0) {
+                                    var prompt = `you are a helpful, knowledge sharing chatbot. Your name is '파이'. I say: ${noteText}. You reply:`
+                                    var sendChatUrl = 'https://api.openai.com/v1/completions'
+                                    var sendChatParam = {
+                                        body: JSON.stringify({
+                                            "model": "text-davinci-003", 
+                                            "prompt": prompt, 
+                                            "temperature": 0.86, 
+                                            "max_tokens": 256}),
+                                        method: "POST",
+                                        headers: {
+                                            "content-type": "application/json",
+                                            Authorization: "Bearer " + authCode,
                                         }
                                     }
-                                    
-                                })
+                                    fetch(sendChatUrl, sendChatParam)
+                                    .then((chatData) => {return chatData.json()})
+                                    .then((chatRes) => {
+                                        console.log(chatRes)
+                                        if (chatRes.choices) {
+                                            var response = chatRes.choices[0].text.trim()
+                                            var replyUrl = 'https://'+host+'/api/notes/create'
+                                            var replyParam = {
+                                                method: 'POST',
+                                                headers: {
+                                                    'content-type': 'application/json',
+                                                },
+                                                body: JSON.stringify({
+                                                    i: i,
+                                                    replyId: noteId,
+                                                    text: response
+                                                }),
+                                                credentials: 'omit'
+                                            }
+                                            fetch(replyUrl, replyParam)
+                                            .then((replyData) => {return replyData.json()})
+                                            .then((replyRes) => {})
+                                            .catch((error) => console.log(error));
+                                        }
+                                    })
+                                    .catch((error) => console.log(error));
+                                }
                             }
-                            await delay().then(() => {
-                                setTimeout(() => {
-                                    location.href = 'https://yeojibur.in/pichan/'
-                                }, 10000);
-                            })
                         }
 
-                        sendMention(MentionRes)
+                        replyMention(MentionRes)
                     }
                 })
                 .catch((error) => console.log(error));
