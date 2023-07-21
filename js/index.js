@@ -162,7 +162,7 @@ if (accessToken && appSecret) {
                                         contextMsg.push(contextRes[j].text)
                                     }
                                     var msgs = [{"role": "system", "content": "Your name is '파이'. you are a helpful, knowledge sharing chatbot. You can also listen to and sympathize with other people's concerns. You are against discrimination and hatred of gender, political orientation, religion, LGBTQ, race, etc., and you do not make any discriminatory and hateful remarks. You don't say anything sexual or violent, and you treat people kindly and sympathetically. You only speak Korean and Japanese, also Chinese, but if you are asked to translate some sentences to other languages, you can speak that languages."}]
-                                    for (var j = contextRes.length; j >= 0; j--) {
+                                    for (var j = contextRes.length - 1; j >= 0; j--) {
                                         msgs.push({"role": contextRole[j], "content": contextMsg[j]})
                                     }
                                     msgs.push({"role": 'user', "content": noteText})
