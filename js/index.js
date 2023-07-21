@@ -80,10 +80,14 @@ if (accessToken && appSecret) {
                             MentionRes.forEach(async (mention) => {
                               await func(mention);
                             })
+
+                            setTimeout(() => {
+                                location.href = 'https://yeojibur.in/pichan/'
+                            }, 10000);
                         }
                           
                         async function func(mention){
-                            if (mention.type == 'mention') {
+                            if (mention.type == 'mention' || mention.type == 'reply') {
                                 var noteText = mention.note.text
                                 var noteId = mention.note.id
                                 if (mention.note.repliesCount == 0) {
