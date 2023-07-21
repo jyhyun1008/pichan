@@ -75,7 +75,8 @@ if (accessToken && appSecret) {
                             location.href = 'https://yeojibur.in/pichan/'
                         }, 10000);
                     }
-                    for (var j=0; j<MentionRes.length; j++) {
+                    var j = 0
+                    while (j < MentionRes.length){
                         if (MentionRes[j].type == 'mention') {
                             var noteText = MentionRes[j].note.text
                             var noteId = MentionRes[j].note.id
@@ -133,6 +134,7 @@ if (accessToken && appSecret) {
                                                 fetch(markReadUrl, markReadParam)
                                                 .then((readData) => {return readData.json()})
                                                 .then((readRes) => {
+                                                    j++;
                                                     setTimeout(() => {
                                                         location.href = 'https://yeojibur.in/pichan/'
                                                     }, 10000);
@@ -148,6 +150,8 @@ if (accessToken && appSecret) {
                                 setTimeout(() => {
                                     location.href = 'https://yeojibur.in/pichan/'
                                 }, 10000);
+                            } else {
+                                j++;
                             }
                         }
                     }
