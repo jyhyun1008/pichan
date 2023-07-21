@@ -74,15 +74,18 @@ if (accessToken && appSecret) {
                         setTimeout(() => {
                             location.href = 'https://yeojibur.in/pichan/'
                         }, 10000);
+                    } else {
+                        var j = 0;
+                        mention(MentionRes, j, mention)
                     }
-                    var j = 0
-                    while (j < MentionRes.length){
-                        if (MentionRes[j].type == 'mention') {
-                            var noteText = MentionRes[j].note.text
-                            var noteId = MentionRes[j].note.id
-                            if (MentionRes[j].note.repliesCount < 1) {
+                    function mention(mentionres, j, callback) {
 
-                                var haveReply = MentionRes[j].note.reply
+                        if (mentionres[j].type == 'mention') {
+                            var noteText = mentionres[j].note.text
+                            var noteId = mentionres[j].note.id
+                            if (mentionres[j].note.repliesCount < 1) {
+
+                                var haveReply = mentionres[j].note.reply
                                 var prompt = `you are a helpful, knowledge sharing chatbot. I say: ${noteText}. You reply:`
                                 var sendChatUrl = 'https://api.openai.com/v1/completions'
                                 var sendChatParam = {
@@ -119,8 +122,7 @@ if (accessToken && appSecret) {
                                         fetch(replyUrl, replyParam)
                                         .then((replyData) => {return replyData.json()})
                                         .then((replyRes) => {
-                                            j++;
-                                            if (j == MentionRes.length - 1) {
+                                            if (j == mentionres.length - 1) {
                                                 var markReadUrl = 'https://'+host+'/api/notifications/mark-all-as-read'
                                                 var markReadParam = {
                                                     method: 'POST',
@@ -140,20 +142,25 @@ if (accessToken && appSecret) {
                                                     }, 10000);
                                                 })
                                                 .catch((error) => console.log(error));
+                                            } else {
+                                                j = j+1;
+                                                callback(mentionres, j);
                                             }
                                         })
                                         .catch((error) => console.log(error));
                                     }
                                 })
                                 .catch((error) => console.log(error));
-                            } else if (j == MentionRes.length - 1) {
+                            } else if (j == mentionres.length - 1) {
                                 setTimeout(() => {
                                     location.href = 'https://yeojibur.in/pichan/'
                                 }, 10000);
                             } else {
-                                j++;
+                                j = j + 1;
+                                callback(mentionres, j);
                             }
                         }
+
                     }
                 })
                 .catch((error) => console.log(error));
