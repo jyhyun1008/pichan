@@ -119,6 +119,7 @@ if (accessToken && appSecret) {
                                         fetch(replyUrl, replyParam)
                                         .then((replyData) => {return replyData.json()})
                                         .then((replyRes) => {
+                                            j++;
                                             if (j == MentionRes.length - 1) {
                                                 var markReadUrl = 'https://'+host+'/api/notifications/mark-all-as-read'
                                                 var markReadParam = {
@@ -134,7 +135,6 @@ if (accessToken && appSecret) {
                                                 fetch(markReadUrl, markReadParam)
                                                 .then((readData) => {return readData.json()})
                                                 .then((readRes) => {
-                                                    j++;
                                                     setTimeout(() => {
                                                         location.href = 'https://yeojibur.in/pichan/'
                                                     }, 10000);
