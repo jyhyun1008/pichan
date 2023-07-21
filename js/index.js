@@ -33,6 +33,8 @@ const accessToken = localStorage.getItem('at');
 const appSecret = localStorage.getItem('as');
 const authCode = localStorage.getItem('ac');
 
+var MentionRes, j
+
 if (accessToken && appSecret) {
     const i = CryptoJS.SHA256(accessToken + appSecret).toString(CryptoJS.enc.Hex);
     console.log(i)
@@ -68,9 +70,10 @@ if (accessToken && appSecret) {
                 }
                 fetch(findMenUrl, findMenParam)
                 .then((MentionData) => {return MentionData.json()})
-                .then((MentionRes) => {
-                    console.log(MentionRes)
-                    var j = -1;
+                .then((mentions) => {
+                    console.log(mentions)
+                    MentionRes = mentions
+                    j = -1;
                     if (MentionRes.length == 0) {
                         setTimeout(() => {
                             location.href = 'https://yeojibur.in/pichan/'
@@ -81,7 +84,7 @@ if (accessToken && appSecret) {
                             if (MentionRes[j].type == 'mention') {
                                 var noteText = MentionRes[j].note.text
                                 var noteId = MentionRes[j].note.id
-                                if (MentionRes[j].note.repliesCount < 1) {
+                                if (MentionRes[j].note.repliesCount == 0) {
                                     var prompt = `you are a helpful, knowledge sharing chatbot. Your name is '파이'. I say: ${noteText}. You reply:`
                                     var sendChatUrl = 'https://api.openai.com/v1/completions'
                                     var sendChatParam = {
@@ -119,25 +122,9 @@ if (accessToken && appSecret) {
                                             .then((replyData) => {return replyData.json()})
                                             .then((replyRes) => {
                                                 if (j == MentionRes.length - 1) {
-                                                    var markReadUrl = 'https://'+host+'/api/notifications/mark-all-as-read'
-                                                    var markReadParam = {
-                                                        method: 'POST',
-                                                        headers: {
-                                                            'content-type': 'application/json',
-                                                        },
-                                                        body: JSON.stringify({
-                                                            i: i,
-                                                        }),
-                                                        credentials: 'omit'
-                                                    }
-                                                    fetch(markReadUrl, markReadParam)
-                                                    .then((readData) => {return readData.json()})
-                                                    .then((readRes) => {
-                                                        setTimeout(() => {
+                                                    setTimeout(() => {
                                                             location.href = 'https://yeojibur.in/pichan/'
                                                         }, 10000);
-                                                    })
-                                                    .catch((error) => console.log(error));
                                                 } else {
                                                     runthis();
                                                 }
