@@ -52,8 +52,8 @@ if (accessToken && appSecret) {
     .then((idRes) => {
         console.log(idRes)
         if (idRes.username) {
-            const myUserName = idRes.username
-            if (myUserName = 'pi') {
+            var  myUserName = idRes.username
+            if (myUserName == 'pi') {
                 const findMenUrl = 'https://'+host+'/api/i/notifications'
                 const findMenParam = {
                     method: 'POST',
