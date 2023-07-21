@@ -76,7 +76,7 @@ if (accessToken && appSecret) {
                         }, 10000);
                     } else {
                         var j = -1;
-                        runthis(mention)
+                        runthis(mention);
                     }
                     function runthis(callback) {
                         j = j+1;
@@ -88,7 +88,7 @@ if (accessToken && appSecret) {
                             var noteText = MentionRes[j].note.text
                             var noteId = MentionRes[j].note.id
                             if (MentionRes[j].note.repliesCount < 1) {
-                                var prompt = `you are a helpful, knowledge sharing chatbot. I say: ${noteText}. You reply:`
+                                var prompt = `you are a helpful, knowledge sharing chatbot. Your name is '파이'. I say: ${noteText}. You reply:`
                                 var sendChatUrl = 'https://api.openai.com/v1/completions'
                                 var sendChatParam = {
                                     body: JSON.stringify({
@@ -145,8 +145,7 @@ if (accessToken && appSecret) {
                                                 })
                                                 .catch((error) => console.log(error));
                                             } else {
-                                                j = j+1;
-                                                callback(MentionRes, j);
+                                                runthis(mention);
                                             }
                                         })
                                         .catch((error) => console.log(error));
@@ -158,8 +157,7 @@ if (accessToken && appSecret) {
                                     location.href = 'https://yeojibur.in/pichan/'
                                 }, 10000);
                             } else {
-                                j = j + 1;
-                                callback(MentionRes, j);
+                                runthis(mention);
                             }
                         }
 
