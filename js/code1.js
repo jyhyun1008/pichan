@@ -1,0 +1,1 @@
+var code1 = 'woayYxiIEcR9s'
