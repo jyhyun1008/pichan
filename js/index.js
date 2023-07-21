@@ -112,7 +112,7 @@ if (accessToken && appSecret) {
                                     .then((chatRes) => {
                                         console.log(chatRes)
                                         if (chatRes.choices) {
-                                            var response = chatRes.choices[0].text.trim()
+                                            var response = chatRes.choices[0].message.content
                                             var replyUrl = 'https://'+host+'/api/notes/create'
                                             var replyParam = {
                                                 method: 'POST',
@@ -185,7 +185,7 @@ if (accessToken && appSecret) {
                                     .then((chatRes) => {
                                         console.log(chatRes)
                                         if (chatRes.choices) {
-                                            var response = chatRes.choices[0].text.trim()
+                                            var response = chatRes.choices[0].message.content
                                             var replyUrl = 'https://'+host+'/api/notes/create'
                                             var replyParam = {
                                                 method: 'POST',
