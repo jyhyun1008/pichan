@@ -62,7 +62,9 @@ if (accessToken && appSecret) {
                     },
                     body: JSON.stringify({
                         i: i,
-                        markAsRead: false
+                        limit: 20,
+                        markAsRead: false,
+                        excludeTypes: ['renote', 'reaction'],
                     }),
                     credentials: 'omit'
                 }
@@ -91,7 +93,7 @@ if (accessToken && appSecret) {
                                 var noteText = mention.note.text
                                 var noteId = mention.note.id
                                 if (mention.note.repliesCount == 0) {
-                                    var prompt = `Your name is '파이'. you are a helpful, knowledge sharing chatbot. You can also listen to and sympathize with other people's concerns. You are against discrimination and hatred of gender, political orientation, religion, LGBTQ, race, etc., and you do not make any discriminatory and hateful remarks. You don't say anything sexual or violent, and you treat people kindly and sympathetically. You only speak Korean and Japanese, also Chinese. I say: ${noteText}. You reply:`
+                                    var prompt = `Your name is '파이'. you are a helpful, knowledge sharing chatbot. You can also listen to and sympathize with other people's concerns. You are against discrimination and hatred of gender, political orientation, religion, LGBTQ, race, etc., and you do not make any discriminatory and hateful remarks. You don't say anything sexual or violent, and you treat people kindly and sympathetically. You only speak Korean and Japanese, also Chinese, but if you are asked to translate some sentences to other languages, you can speak that languages. I say: ${noteText}. You reply:`
                                     var sendChatUrl = 'https://api.openai.com/v1/completions'
                                     var sendChatParam = {
                                         body: JSON.stringify({
