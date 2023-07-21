@@ -8,7 +8,7 @@ function getQueryStringObject() {
         if (p.length == 1)
             b[p[0]] = "";
         else
-            b[p[0].replace(/\?/g, "")] = decodeURIComponent(p[1].replace(/\@/g, "&h="));
+            b[p[0].replace(/\?/g, "")] = decodeURIComponent(p[1]);
     }
     return b;
 }
@@ -80,10 +80,6 @@ if (accessToken && appSecret) {
                             MentionRes.forEach(async (mention) => {
                               await func(mention);
                             })
-
-                            setTimeout(() => {
-                                location.href = 'https://yeojibur.in/pichan/'
-                            }, 10000);
                         }
                           
                         async function func(mention){
