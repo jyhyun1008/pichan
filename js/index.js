@@ -94,13 +94,13 @@ if (accessToken && appSecret) {
                                 var noteId = mention.note.id
                                 if (mention.note.repliesCount == 0) {
                                     var prompt = `Your name is '파이'. you are a helpful, knowledge sharing chatbot. You can also listen to and sympathize with other people's concerns. You are against discrimination and hatred of gender, political orientation, religion, LGBTQ, race, etc., and you do not make any discriminatory and hateful remarks. You don't say anything sexual or violent, and you treat people kindly and sympathetically. You only speak Korean and Japanese, also Chinese, but if you are asked to translate some sentences to other languages, you can speak that languages. I say: ${noteText}. You reply:`
-                                    var sendChatUrl = 'https://api.openai.com/v1/completions'
+                                    var sendChatUrl = 'https://api.openai.com/v1/chat/completions'
                                     var sendChatParam = {
                                         body: JSON.stringify({
-                                            "model": "text-davinci-003", 
-                                            "prompt": prompt, 
+                                            "model": "gpt-3.5-turbo", 
+                                            "messages": [{"role": "user", "content": prompt}], 
                                             "temperature": 0.86, 
-                                            "max_tokens": 256}),
+                                            "max_tokens": 512}),
                                         method: "POST",
                                         headers: {
                                             "content-type": "application/json",
@@ -170,10 +170,10 @@ if (accessToken && appSecret) {
                                     var sendChatUrl = 'https://api.openai.com/v1/chat/completions'
                                     var sendChatParam = {
                                         body: JSON.stringify({
-                                            "model": "text-davinci-003", 
+                                            "model": "gpt-3.5-turbo", 
                                             "messages": msgs, 
                                             "temperature": 0.86,
-                                            "max_tokens": 256}),
+                                            "max_tokens": 512}),
                                         method: "POST",
                                         headers: {
                                             "content-type": "application/json",
