@@ -87,11 +87,11 @@ if (accessToken && appSecret) {
                         }
                           
                         async function func(mention){
-                            if (mention.type == 'mention' || mention.type == 'reply') {
+                            if (mention.type == 'mention') {
                                 var noteText = mention.note.text
                                 var noteId = mention.note.id
                                 if (mention.note.repliesCount == 0) {
-                                    var prompt = `you are a helpful, knowledge sharing chatbot. Your name is '파이'. I say: ${noteText}. You reply:`
+                                    var prompt = `Your name is '파이'. you are a helpful, knowledge sharing chatbot. You can also listen to and sympathize with other people's concerns. You are against discrimination and hatred of gender, political orientation, religion, LGBTQ, race, etc., and you do not make any discriminatory and hateful remarks. You don't say anything sexual or violent, and you treat people kindly and sympathetically. You only speak Korean and Japanese, also Chinese. I say: ${noteText}. You reply:`
                                     var sendChatUrl = 'https://api.openai.com/v1/completions'
                                     var sendChatParam = {
                                         body: JSON.stringify({
@@ -132,6 +132,57 @@ if (accessToken && appSecret) {
                                     })
                                     .catch((error) => console.log(error));
                                 }
+                            } else if (mention.type == 'reply') {
+                                var noteText = mention.note.text
+                                var noteId = mention.note.id
+                                var noteContextUrl = 'https://'+host+'/api/notes/conversation'
+                                var noteContextParam = {
+                                    method: 'POST',
+                                    headers: {
+                                        'content-type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        limit: 100,
+                                        noteId: noteId
+                                    })
+                                }
+                                fetch(noteContextUrl, noteContextParam)
+                                .then((contextData) => {return contextData.json()})
+                                .then((contextRes) => {
+                                    var contextRole = []
+                                    var contextMsg = []
+                                    for (var j = 0; j<contextRes.length; j++) {
+                                        if (contextRes[j].user.username == 'pi') {
+                                            contextRole.push('assistant')
+                                        } else {
+                                            contextRole.push('user')
+                                        }
+                                        contextMsg.push(contextRes[j].text)
+                                    }
+                                    var msgs = []
+                                    for (var j = contextRes.length - 1; j >= 0; j--) {
+                                        msgs.push({"role": contextRole[j], "content": contextMsg[j]})
+                                    }
+                                    console.log(msgs)
+                                })
+                            } else if (mention.type == 'follow') {
+                                var userId = mention.userId
+                                var followUrl = 'https://'+host+'/api/following/create'
+                                var followParam = {
+                                    method: 'POST',
+                                    headers: {
+                                        'content-type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        i: i,
+                                        userId: userId
+                                    }),
+                                    credentials: 'omit'
+                                }
+                                fetch(followUrl, followParam)
+                                .then((followData) => {return followData.json()})
+                                .then((followRes) => {console.log(followRes)})
+                                .catch((error) => console.log(error))
                             }
                         }
 
