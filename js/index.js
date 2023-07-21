@@ -76,11 +76,11 @@ if (accessToken && appSecret) {
                         }, 10000);
                     } else {
                         var j = -1;
-                        runthis(mention);
+                        runthis();
                     }
-                    function runthis(callback) {
+                    function runthis() {
                         j = j+1;
-                        callback();
+                        mention();
                     }
                     function mention() {
 
@@ -145,7 +145,7 @@ if (accessToken && appSecret) {
                                                 })
                                                 .catch((error) => console.log(error));
                                             } else {
-                                                runthis(mention);
+                                                runthis();
                                             }
                                         })
                                         .catch((error) => console.log(error));
@@ -157,7 +157,7 @@ if (accessToken && appSecret) {
                                     location.href = 'https://yeojibur.in/pichan/'
                                 }, 10000);
                             } else {
-                                runthis(mention);
+                                runthis();
                             }
                         }
 
