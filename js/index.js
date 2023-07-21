@@ -33,8 +33,6 @@ const accessToken = localStorage.getItem('at');
 const appSecret = localStorage.getItem('as');
 const authCode = localStorage.getItem('ac');
 
-var MentionRes, j
-
 if (accessToken && appSecret) {
     const i = CryptoJS.SHA256(accessToken + appSecret).toString(CryptoJS.enc.Hex);
     console.log(i)
@@ -70,16 +68,15 @@ if (accessToken && appSecret) {
                 }
                 fetch(findMenUrl, findMenParam)
                 .then((MentionData) => {return MentionData.json()})
-                .then((mentions) => {
-                    console.log(mentions)
-                    MentionRes = mentions
-                    j = -1;
+                .then((MentionRes) => {
+                    console.log(MentionRes)
+                    var j = -1;
                     if (MentionRes.length == 0) {
                         setTimeout(() => {
                             location.href = 'https://yeojibur.in/pichan/'
                         }, 10000);
                     } else {
-                        function mention() {
+                        function mention(MentionRes, j) {
 
                             if (MentionRes[j].type == 'mention') {
                                 var noteText = MentionRes[j].note.text
@@ -126,7 +123,7 @@ if (accessToken && appSecret) {
                                                             location.href = 'https://yeojibur.in/pichan/'
                                                         }, 10000);
                                                 } else {
-                                                    runthis();
+                                                    runthis(MentionRes, j);
                                                 }
                                             })
                                             .catch((error) => console.log(error));
@@ -138,16 +135,16 @@ if (accessToken && appSecret) {
                                         location.href = 'https://yeojibur.in/pichan/'
                                     }, 10000);
                                 } else {
-                                    runthis();
+                                    runthis(MentionRes, j);
                                 }
                             }
     
                         }
-                        function runthis() {
+                        function runthis(MentionRes, j) {
                             j = j+1;
-                            mention();
+                            mention(MentionRes, j);
                         }
-                        runthis();
+                        runthis(MentionRes, j);
                     }
                 })
                 .catch((error) => console.log(error));
