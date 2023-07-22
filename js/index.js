@@ -93,6 +93,7 @@ if (accessToken && appSecret) {
                             if (mention.type == 'mention') {
                                 var noteText = mention.note.text
                                 var noteId = mention.note.id
+                                var noteVis = mention.note.visibility
                                 if (mention.note.repliesCount == 0 && mention.user.isBot == false) {
                                     var prompt = `Your name is '파이'. you are a helpful, knowledge sharing chatbot. You can also listen to and sympathize with other people's concerns. You are against discrimination and hatred of gender, political orientation, religion, LGBTQ, race, etc., and you do not make any discriminatory and hateful remarks. You don't say anything sexual or violent, and you treat people kindly and sympathetically. You only speak Korean and Japanese, also Chinese, but if you are asked to translate some sentences to other languages, you can speak that languages. I say: ${noteText}. You reply:`
                                     var sendChatUrl = 'https://api.openai.com/v1/chat/completions'
@@ -123,7 +124,8 @@ if (accessToken && appSecret) {
                                                 body: JSON.stringify({
                                                     i: i,
                                                     replyId: noteId,
-                                                    text: response
+                                                    text: response,
+                                                    visibility: noteVis
                                                 }),
                                                 credentials: 'omit'
                                             }
@@ -138,6 +140,7 @@ if (accessToken && appSecret) {
                             } else if (mention.type == 'reply') {
                                 var noteText = mention.note.text
                                 var noteId = mention.note.id
+                                var noteVis = mention.note.visibility
                                 if (mention.note.repliesCount == 0 && mention.user.isBot == false) {
 
                                     var noteContextUrl = 'https://'+host+'/api/notes/conversation'
@@ -198,7 +201,8 @@ if (accessToken && appSecret) {
                                                     body: JSON.stringify({
                                                         i: i,
                                                         replyId: noteId,
-                                                        text: response
+                                                        text: response,
+                                                        visibility: noteVis
                                                     }),
                                                     credentials: 'omit'
                                                 }
