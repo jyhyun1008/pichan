@@ -150,9 +150,11 @@ if (accessToken && appSecret) {
                                             'content-type': 'application/json',
                                         },
                                         body: JSON.stringify({
+                                            i: i,
                                             limit: 100,
                                             noteId: noteId
-                                        })
+                                        }),
+                                        credentials: 'omit'
                                     }
                                     fetch(noteContextUrl, noteContextParam)
                                     .then((contextData) => {return contextData.json()})
