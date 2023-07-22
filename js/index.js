@@ -269,5 +269,10 @@ if (accessToken && appSecret) {
             }
         }
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+    
+        setTimeout(() => {
+            location.href = 'https://yeojibur.in/pichan/'
+        }, 20000);
+    });
 }
