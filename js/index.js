@@ -129,6 +129,16 @@ if (accessToken && appSecret) {
                                                 }),
                                                 credentials: 'omit'
                                             }
+                                            if (response.length > 140) {
+                                                var cw = '답변입니다냥!'
+                                                replyParam.body = JSON.stringify({
+                                                    i: i,
+                                                    replyId: noteId,
+                                                    text: response,
+                                                    visibility: noteVis,
+                                                    cw: cw
+                                                })
+                                            } 
                                             fetch(replyUrl, replyParam)
                                             .then((replyData) => {return replyData.json()})
                                             .then((replyRes) => {})
@@ -212,6 +222,16 @@ if (accessToken && appSecret) {
                                                     }),
                                                     credentials: 'omit'
                                                 }
+                                                if (response.length > 140) {
+                                                    var cw = '답변입니다냥!'
+                                                    replyParam.body = JSON.stringify({
+                                                        i: i,
+                                                        replyId: noteId,
+                                                        text: response,
+                                                        visibility: noteVis,
+                                                        cw: cw
+                                                    })
+                                                } 
                                                 fetch(replyUrl, replyParam)
                                                 .then((replyData) => {return replyData.json()})
                                                 .then((replyRes) => {})
