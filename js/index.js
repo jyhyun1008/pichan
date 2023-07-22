@@ -138,7 +138,7 @@ if (accessToken && appSecret) {
                             } else if (mention.type == 'reply') {
                                 var noteText = mention.note.text
                                 var noteId = mention.note.id
-                                if (mention.note.repliesCount == 0) {
+                                if (mention.note.repliesCount == 0 && mention.user.isBot == false) {
 
                                     var noteContextUrl = 'https://'+host+'/api/notes/conversation'
                                     var noteContextParam = {
