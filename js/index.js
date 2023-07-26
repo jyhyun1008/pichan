@@ -156,6 +156,9 @@ if (accessToken && appSecret) {
                                 var noteText = mention.note.text.replace(/\@pi\@i\.peacht\.art/g, "").replace(/\@pi/g, "")
                                 var noteId = mention.note.id
                                 var noteUserName = mention.note.user.username
+                                if (!noteHost) {
+                                    noteUserName = noteUserName+'@'+noteHost
+                                }
                                 var noteVis = mention.note.visibility
                                 if (mention.note.repliesCount == 0 && mention.user.isBot == false) {
 
