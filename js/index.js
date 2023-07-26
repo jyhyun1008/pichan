@@ -95,8 +95,10 @@ if (accessToken && appSecret) {
                                 var noteId = mention.note.id
                                 var noteUserName = mention.note.user.username
                                 var noteHost = mention.note.user.host
-                                if (noteHost != 'null') {
+                                if (!noteHost || noteHost != 'null' || noteHost != '') {
                                     noteUserName = noteUserName+'@'+noteHost
+                                } else {
+                                    noteUserName = noteUserName + '@i.peacht.art'
                                 }
                                 var noteVis = mention.note.visibility
                                 if (mention.note.repliesCount == 0 && mention.user.isBot == false) {
@@ -157,8 +159,10 @@ if (accessToken && appSecret) {
                                 var noteId = mention.note.id
                                 var noteUserName = mention.note.user.username
                                 var noteHost = mention.note.user.host
-                                if (noteHost != 'null') {
+                                if (!noteHost || noteHost != 'null' || noteHost != '') {
                                     noteUserName = noteUserName+'@'+noteHost
+                                } else {
+                                    noteUserName = noteUserName + '@i.peacht.art'
                                 }
                                 var noteVis = mention.note.visibility
                                 if (mention.note.repliesCount == 0 && mention.user.isBot == false) {
