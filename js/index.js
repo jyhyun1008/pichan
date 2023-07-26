@@ -95,7 +95,7 @@ if (accessToken && appSecret) {
                                 var noteId = mention.note.id
                                 var noteUserName = mention.note.user.username
                                 var noteHost = mention.note.user.host
-                                if (!noteHost) {
+                                if (noteHost != 'null') {
                                     noteUserName = noteUserName+'@'+noteHost
                                 }
                                 var noteVis = mention.note.visibility
@@ -156,7 +156,7 @@ if (accessToken && appSecret) {
                                 var noteText = mention.note.text.replace(/\@pi\@i\.peacht\.art/g, "").replace(/\@pi/g, "")
                                 var noteId = mention.note.id
                                 var noteUserName = mention.note.user.username
-                                if (!noteHost) {
+                                if (noteHost != 'null') {
                                     noteUserName = noteUserName+'@'+noteHost
                                 }
                                 var noteVis = mention.note.visibility
