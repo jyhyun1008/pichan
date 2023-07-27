@@ -94,9 +94,8 @@ if (accessToken && appSecret) {
                                 var noteText = mention.note.text.replace(/\@pi\@i\.peacht\.art/g, "").replace(/\@pi/g, "")
                                 var noteId = mention.note.id
                                 var noteUserName = mention.note.user.username
-                                var noteHost = mention.note.user.host
-                                if (!noteHost || noteHost != 'null' || noteHost != '') {
-                                    noteUserName = noteUserName+'@'+noteHost
+                                if (!mention.note.user.host || mention.note.user.host != 'null' || mention.note.user.host != '') {
+                                    noteUserName = noteUserName+'@'+mention.note.user.host
                                 } else {
                                     noteUserName = noteUserName + '@i.peacht.art'
                                 }
@@ -158,9 +157,8 @@ if (accessToken && appSecret) {
                                 var noteText = mention.note.text.replace(/\@pi\@i\.peacht\.art/g, "").replace(/\@pi/g, "")
                                 var noteId = mention.note.id
                                 var noteUserName = mention.note.user.username
-                                var noteHost = mention.note.user.host
-                                if (!noteHost || noteHost != 'null' || noteHost != '') {
-                                    noteUserName = noteUserName+'@'+noteHost
+                                if (!mention.note.user.host || mention.note.user.host != 'null' || mention.note.user.host != '') {
+                                    noteUserName = noteUserName+'@'+mention.note.user.host
                                 } else {
                                     noteUserName = noteUserName + '@i.peacht.art'
                                 }
