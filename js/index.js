@@ -75,7 +75,7 @@ if (accessToken && appSecret) {
                     console.log(MentionRes)
                     if (MentionRes.length == 0) {
                         setTimeout(() => {
-                            location.href = 'https://yeojibur.in/pichan/'
+                            location.href = 'https://hiyuno.peacht.art/pichan/'
                         }, 20000);
                     } else {
 
@@ -85,7 +85,7 @@ if (accessToken && appSecret) {
                             })
 
                             setTimeout(() => {
-                                location.href = 'https://yeojibur.in/pichan/'
+                                location.href = 'https://hiyuno.peacht.art/pichan/'
                             }, 20000);
                         }
                           
@@ -284,7 +284,7 @@ if (accessToken && appSecret) {
     .catch((error) => {
     
         setTimeout(() => {
-            location.href = 'https://yeojibur.in/pichan/'
+            location.href = 'https://hiyuno.peacht.art/pichan/'
         }, 20000);
     });
 }
