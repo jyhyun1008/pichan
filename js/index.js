@@ -35,7 +35,7 @@ const authCode = localStorage.getItem('ac');
 
 var lastNoteDate = 0
 if (localStorage.getItem('lastNote')) {
-    lastNoteDate = localStorage.getItem('lastNote')
+    lastNoteDate = new Date(localStorage.getItem('lastNote'))
 }
 
 if (accessToken && appSecret) {
