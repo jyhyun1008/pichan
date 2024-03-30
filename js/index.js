@@ -212,9 +212,9 @@ if (accessToken && appSecret) {
                                         var sendChatUrl = 'https://api.openai.com/v1/chat/completions'
                                         var sendChatParam = {
                                             body: JSON.stringify({
-                                                "model": "gpt-3.5-turbo", 
+                                                "model": "gpt-4", 
                                                 "messages": msgs, 
-                                                "temperature": 0.86,
+                                                "temperature": 0.7,
                                                 "max_tokens": 512}),
                                             method: "POST",
                                             headers: {
@@ -288,7 +288,7 @@ if (accessToken && appSecret) {
                 .catch((error) => console.log(error));
                 var nownow = new Date()
                 var ampm = ' AM'
-                if (nownow.getHours > 11) {
+                if (nownow.getHours() > 11) {
                     ampm = ' PM'
                 }
                 if (nownow - lastNoteDate > 2*3600*1000) {
@@ -296,9 +296,9 @@ if (accessToken && appSecret) {
                     var sendChatUrl = 'https://api.openai.com/v1/chat/completions'
                     var sendChatParam = {
                         body: JSON.stringify({
-                            "model": "gpt-3.5-turbo", 
+                            "model": "gpt-4", 
                             "messages": msgs, 
-                            "temperature": 0.86,
+                            "temperature": 0.7,
                             "max_tokens": 512}),
                         method: "POST",
                         headers: {
