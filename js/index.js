@@ -308,7 +308,7 @@ if (accessToken && appSecret) {
                                 "model": "gpt-4", 
                                 "messages": msgs, 
                                 "temperature": 0.7,
-                                "max_tokens": 256}),
+                                "max_tokens": 180}),
                             method: "POST",
                             headers: {
                                 "content-type": "application/json",
