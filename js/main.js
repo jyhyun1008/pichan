@@ -88,7 +88,7 @@ if (accessToken) {
         var pendingReminds = remindArray.filter((remind) => Date.parse(remind.time) > nownow);
 
         remindArray = pendingReminds
-        localStorage.setItem('remindArray', JSON.parse(pendingReminds))
+        localStorage.setItem('remindArray', JSON.stringify(pendingReminds))
 
         for await(remind of passedReminds) {
             if (Date.parse(remind.time) < nownow) {
