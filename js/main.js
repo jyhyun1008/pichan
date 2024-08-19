@@ -320,7 +320,7 @@ if (accessToken) {
                                             }
 
                                             //맞팔
-                                            if (responseJSON.followBack && replyRes) {
+                                            if (responseJSON.followBack == "true" && replyRes) {
                                                 var checkFollowUrl = 'https://'+host+'/api/users/show'
                                                 var checkFollowParam = {
                                                     method: 'POST',
