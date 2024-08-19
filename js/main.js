@@ -481,7 +481,7 @@ if (accessToken) {
 
     //혼잣말 note
     if (nownow - lastNoteDate > 2*3600*1000) {
-        var scheduleNow = scheduleArray[nownow.getDay][nownow.getHours]
+        var scheduleNow = scheduleArray[nownow.getDay()][nownow.getHours()]
         var prompt = GENERAL_PROMPT
         var schedulePrompt = `The date and time now is ${Date.toString(nownow)} and Your schedule is ${scheduleNow}.`
         var sendChatUrl = 'https://api.openai.com/v1/chat/completions'
