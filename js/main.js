@@ -484,6 +484,7 @@ if (accessToken) {
         var scheduleNow = scheduleArray[nownow.getDay()][nownow.getHours()]
         var prompt = GENERAL_PROMPT
         var schedulePrompt = `The date and time now is ${Date.toString(nownow)} and Your schedule is ${scheduleNow}.`
+        var msgs = [{"role": "system", "content": prompt}, {"role": "system", "content": schedulePrompt}]
         var sendChatUrl = 'https://api.openai.com/v1/chat/completions'
         var sendChatParam = {
             body: JSON.stringify({
