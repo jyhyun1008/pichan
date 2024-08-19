@@ -36,6 +36,8 @@ if (localStorage.getItem('lastNote')) {
 }
 
 var emotionArray = {}
+emotionArray[ADMIN] = 100
+
 if (localStorage.getItem('emotionArray')) {
     emotion = JSON.parse(localStorage.getItem('emotionArray'))
 }
@@ -43,6 +45,7 @@ if (localStorage.getItem('emotionArray')) {
 var countArray = {
     today: new Date().getDate()
 }
+countArray[ADMIN] = 100
 
 if (localStorage.getItem('countArray')) {
     countArray = JSON.parse(localStorage.getItem('countArray'))
@@ -162,9 +165,9 @@ if (accessToken) {
 
                     //로컬에서 온 멘션에 호스트 붙이기
                     if (mention.note.user.host != null) {
-                        noteFullUserName = noteUserName+'@'+mention.note.user.host
+                        noteFullUserName = noteUserName + '@' + mention.note.user.host
                     } else {
-                        noteFullUserName = noteUserName + '@'+host
+                        noteFullUserName = noteUserName + '@' + host
                     }
 
                     //유저 호감도, 오늘의 남은 질문 횟수
