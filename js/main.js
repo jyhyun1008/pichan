@@ -367,7 +367,7 @@ if (accessToken) {
                                                 }
                                                 if (followbackErrorWhy != '') {
                                                     try {
-                                                        var promptMini2 = `The user asked the chatbot to follow them, but you couldn't because of the following reasons: ${followbackErrorWhy} Explain the situation to the user in a sentence or two.`
+                                                        var promptMini2 = `The user asked the chatbot to follow them, as '${noteText}' but you couldn't because of the following reasons: ${followbackErrorWhy} Explain the situation in to the user in a sentence or two. Please use same language as user.`
                                                         var sendChat3Url = 'https://api.openai.com/v1/chat/completions'
                                                         var sendChat3Param = {
                                                             body: JSON.stringify({
@@ -393,7 +393,7 @@ if (accessToken) {
                                                                 'Authorization': `Bearer `+accessToken,
                                                             },
                                                             body: JSON.stringify({
-                                                                replyId: replyRes.noteId,
+                                                                replyId: noteId,
                                                                 text: botResponse2,
                                                                 visibility: 'home'
                                                             }),
@@ -403,6 +403,7 @@ if (accessToken) {
                                                         try {
                                                             var reply2Data = await fetch(reply2Url, reply2Param)
                                                             var reply2Res = await reply2Data.json()
+                                                            console.log(reply2Res)
                                                         } catch(error) {
                                                             console.log(error)
                                                         }
