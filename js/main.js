@@ -480,61 +480,73 @@ if (accessToken) {
     });
 
     //혼잣말 note
-    if (nownow - lastNoteDate > 2*3600*1000) {
+    if (nownow - lastNoteDate > 3*3600*1000) {
         var scheduleNow = scheduleArray[nownow.getDay()][nownow.getHours()]
-        var prompt = GENERAL_PROMPT
-        var schedulePrompt = `The date and time now is ${Date.toString(nownow)} and Your schedule is ${scheduleNow}.`
-        var msgs = [{"role": "system", "content": prompt}, {"role": "system", "content": schedulePrompt}]
-        var sendChatUrl = 'https://api.openai.com/v1/chat/completions'
-        var sendChatParam = {
-            body: JSON.stringify({
-            "model": "gpt-4o", 
-                "messages": msgs, 
-                "temperature": 0.7,
-                "max_tokens": 180}),
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-                Authorization: "Bearer " + authCode,
-            }
-        }
-        fetch(sendChatUrl, sendChatParam)
-        .then((chatData) => {return chatData.json()})
-        .then((chatRes) => {
-            console.log(chatRes)
-            if (chatRes.choices) {
-                var autoNoteText = chatRes.choices[0].message.content
-                var autoNoteUrl = 'https://'+host+'/api/notes/create'
-                var autoNoteParam = {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json',
-                        'Authorization': `Bearer `+accessToken,
-                    },
-                    body: JSON.stringify({
-                        visibility: 'home',
-                        text: autoNoteText
-                    }),
-                    credentials: 'omit'
+        if (scheduleNow !== 'sleep') {
+
+            var prompt = GENERAL_PROMPT
+            var schedulePrompt = `The date and time now is ${Date.toString(nownow)} and Your schedule is ${scheduleNow}.`
+            var msgs = [{"role": "system", "content": prompt}, {"role": "system", "content": schedulePrompt}]
+            var sendChatUrl = 'https://api.openai.com/v1/chat/completions'
+            var sendChatParam = {
+                body: JSON.stringify({
+                "model": "gpt-4o", 
+                    "messages": msgs, 
+                    "temperature": 0.7,
+                    "max_tokens": 180}),
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    Authorization: "Bearer " + authCode,
                 }
-                fetch(autoNoteUrl, autoNoteParam)
-                .then((data) => {
-                    localStorage.setItem('lastNote', true)
-                    lastNoteDate = nownow
-                    localStorage.setItem('lastNoteDate', nownow)
-                    lastNoteText = autoNoteText
-                    localStorage.setItem('lastNoteText', autoNoteText)
-                    return data.json()
-                })
-                .then((res) => {
-                    console.log(res)
-                    setTimeout(() => {
-                        location.href = 'https://hiyuno.peacht.art/pichan/'
-                    }, 20000);
-                })
-                .catch((error) => console.log(error))
             }
-        })
+            fetch(sendChatUrl, sendChatParam)
+            .then((chatData) => {return chatData.json()})
+            .then((chatRes) => {
+                console.log(chatRes)
+                if (chatRes.choices) {
+                    var autoNoteText = chatRes.choices[0].message.content
+                    var autoNoteUrl = 'https://'+host+'/api/notes/create'
+                    var autoNoteParam = {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                            'Authorization': `Bearer `+accessToken,
+                        },
+                        body: JSON.stringify({
+                            visibility: 'home',
+                            text: autoNoteText
+                        }),
+                        credentials: 'omit'
+                    }
+                    fetch(autoNoteUrl, autoNoteParam)
+                    .then((data) => {
+                        localStorage.setItem('lastNote', true)
+                        lastNoteDate = nownow
+                        localStorage.setItem('lastNoteDate', nownow)
+                        lastNoteText = autoNoteText
+                        localStorage.setItem('lastNoteText', autoNoteText)
+                        return data.json()
+                    })
+                    .then((res) => {
+                        console.log(res)
+                        setTimeout(() => {
+                            location.href = 'https://hiyuno.peacht.art/pichan/'
+                        }, 20000);
+                    })
+                    .catch((error) => console.log(error))
+                }
+            })
+        } else {
+            localStorage.setItem('lastNote', true)
+            lastNoteDate = nownow
+            localStorage.setItem('lastNoteDate', nownow)
+            lastNoteText = ''
+            localStorage.setItem('lastNoteText', '')
+            setTimeout(() => {
+                location.href = 'https://hiyuno.peacht.art/pichan/'
+            }, 20000);
+        }
     } else {
         setTimeout(() => {
             location.href = 'https://hiyuno.peacht.art/pichan/'
