@@ -245,7 +245,7 @@ if (accessToken) {
                                             console.log(chatMiniRes.choices[0].message.content)
 
                                             //답을 받아서 형식에 맞추어 자르기
-                                            var responseJSON = JSON.parse('{'+chatRes.choices[0].message.content.split('{')[1].split('}')[0]+'}')
+                                            var responseJSON = JSON.parse('{'+chatMiniRes.choices[0].message.content.split('{')[1].split('}')[0]+'}')
 
                                             //리마인드 여부, 있으면 값 저장
                                             if (responseJSON.remind) {
