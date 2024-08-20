@@ -3,7 +3,7 @@ const emojiArray = { // 드라이브에서 이모지가 저장된 파일ID를 �
     sad: "9x5clhofqn3s024h",
     sorry: "9x5clfv7qn3s024g",
     ok: "9x5clf1oqn3s024d",
-    thanks: "9x586hqcqn3s01t0",
+    thanks: "9x5iz16bqn3s02k8",
     well_done: "9x5clf1rqn3s024e",
     surprised: "9x5clhogqn3s024i",
     question_mark: "9x5clhoiqn3s024j"
