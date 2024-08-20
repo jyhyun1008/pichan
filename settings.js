@@ -1,12 +1,12 @@
 const emojiArray = { // 드라이브에서 이모지가 저장된 파일ID를 따주세요.
-    happy: "9x586hqcqn3s01t0",
-    sad: "9x586hd0qn3s01sz",
-    sorry: "9x48lojlqn3s001i",
-    ok: "9x48logrqn3s001h",
+    happy: "9x5clf22qn3s024f",
+    sad: "9x5clhofqn3s024h",
+    sorry: "9x5clfv7qn3s024g",
+    ok: "9x5clf1oqn3s024d",
     thanks: "9x586hqcqn3s01t0",
-    well_done: "9x586hqcqn3s01t0",
-    surprised: "9x586hqcqn3s01t0",
-    question_mark: "9x48logrqn3s001h"
+    well_done: "9x5clf1rqn3s024e",
+    surprised: "9x5clhogqn3s024i",
+    question_mark: "9x5clhoiqn3s024j"
 }
 
 const BOT_USERNAME = 'pi'
