@@ -1,11 +1,11 @@
 const emojiArray = { // 드라이브에서 이모지가 저장된 파일ID를 따주세요.
-    happy: "9x48logrqn3s001h",
-    sad: "9x48lojlqn3s001i",
+    happy: "9x586hqcqn3s01t0",
+    sad: "9x586hd0qn3s01sz",
     sorry: "9x48lojlqn3s001i",
     ok: "9x48logrqn3s001h",
-    thanks: "9x48lojlqn3s001i",
-    well_done: "9x48logrqn3s001h",
-    surprised: "9x48logrqn3s001h",
+    thanks: "9x586hqcqn3s01t0",
+    well_done: "9x586hqcqn3s01t0",
+    surprised: "9x586hqcqn3s01t0",
     question_mark: "9x48logrqn3s001h"
 }
 
