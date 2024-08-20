@@ -93,6 +93,7 @@ if (accessToken) {
         countArray = {
             today: new Date().getDate()
         }
+        countArray[ADMIN] = 100
         localStorage.setItem('countArray', JSON.stringify(countArray))
     }
 
