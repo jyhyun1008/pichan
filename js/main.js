@@ -274,7 +274,7 @@ if (accessToken) {
                                 var botResponse = chatRes.choices[0].message.content
 
                                 //바로 답변하지 않고 gpt-4o-mini에게 전달
-                                var promptMini = `다음 프롬프트와 챗봇의 대화에서 **프롬프트의 경우** 특정 시간에 챗봇에게 다시 리마인드해 달라는 얘기가 있는지, 만약 그렇다면 지금이 ${nownow}인 점을 고려할 때 리마인드해야 할 시각은 언제인지에 대한 ISO 8601 형식, 챗봇에게 맞팔로우해 달라는 언급이 있었는지, **챗봇의 경우** 이 대화가 챗봇의 입장에서 긍정적인지 중립적인지 부정적인지, 그리고 챗봇의 대답에 이모지를 붙인다면 “happy” “sad” “sorry” "ok" “thanks” “well_done” “surprised” “question_mark” 중 어떤 것인지 결정해서, {"remind": "true/false", "remindDateandTime": "ISO 8601 dateTime", "followBack": "true/false", "conversation": "positive/negative", "emoji": "happy/sad/…"} 형식으로 반환해줘.`
+                                var promptMini = `다음 프롬프트와 챗봇의 대화에서 **프롬프트의 경우** 특정 시간에 챗봇에게 다시 리마인드해 달라는 얘기가 있는지, 만약 그렇다면 지금이 ${nownow}인 점을 고려할 때 리마인드해야 할 시각은 언제인지에 대한 ISO 8601 형식, 챗봇에게 맞팔로우해 달라는 언급이 있었는지, **챗봇의 경우** 이 대화가 챗봇의 입장에서 긍정적인지 중립적인지 부정적인지, 그리고 챗봇의 대답에 이모지를 딱 하나만 고른다면 “happy”, “sad”, “sorry”, "ok", “thanks”, “well_done”, “surprised”, “question_mark” 중 어떤 것인지 결정해서, {"remind": "true/false", "remindDateandTime": "ISO 8601 dateTime", "followBack": "true/false", "conversation": "positive/negative", "emoji": "happy/sad/sorry/ok/thanks/well_done/surprised/question_mark"} 형식으로 반환해줘.`
                                 var conversation = `**프롬프트**: “${noteText}” **챗봇**: "${botResponse}"`
                                 var sendChat2Url = 'https://api.openai.com/v1/chat/completions'
                                 var sendChat2Param = {
