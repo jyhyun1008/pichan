@@ -193,6 +193,7 @@ if (accessToken) {
                     emotionForUser = emotionArray[noteFullUserName]
                 } else {
                     emotionArray[noteFullUserName] = 0
+                    localStorage.setItem('emotionArray', JSON.stringify(emotionArray))
                 }
 
                 var leftCount = 20
@@ -200,6 +201,7 @@ if (accessToken) {
                     leftCount = countArray[noteFullUserName]
                 } else {
                     countArray[noteFullUserName] = 20
+                    localStorage.setItem('countArray', JSON.stringify(countArray))
                 }
 
                 var noteVis = mention.note.visibility
