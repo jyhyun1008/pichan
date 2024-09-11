@@ -309,7 +309,7 @@ if (accessToken) {
                                             emotionArray[noteFullUserName] += 2
                                             localStorage.setItem('emotionArray', JSON.stringify(emotionArray))
                                         } else if (responseJSON.conversation == 'negative') {
-                                            emotionArray[noteFullUserName] -= 1
+                                            emotionArray[noteFullUserName] += 0
                                             localStorage.setItem('emotionArray', JSON.stringify(emotionArray))
                                         }
 
