@@ -35,20 +35,24 @@ if (localStorage.getItem('lastNote')) {
     lastNoteText = localStorage.getItem('lastNoteText')
 }
 
-var emotionArray = {}
-emotionArray[ADMIN] = 100
+var emotionArray
 
 if (localStorage.getItem('emotionArray')) {
     emotion = JSON.parse(localStorage.getItem('emotionArray'))
+} else {
+    emotionArray = {}
+    emotionArray[ADMIN] = 100
 }
 
-var countArray = {
-    today: new Date().getDate()
-}
-countArray[ADMIN] = 100
+var countArray
 
 if (localStorage.getItem('countArray')) {
     countArray = JSON.parse(localStorage.getItem('countArray'))
+} else {
+    countArray = {
+        today: new Date().getDate()
+    }
+    countArray[ADMIN] = 100
 }
 
 var remindArray = []
