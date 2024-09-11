@@ -239,7 +239,7 @@ if (accessToken) {
                             var contextData = await fetch(noteContextUrl, noteContextParam)
                             var contextRes = await contextData.json()
 
-                            for await(cont of contextRes) {
+                            for await(let cont of contextRes) {
                                 var role = ''
                                 var content = ''
                                 if (cont.user.username == BOT_USERNAME) {
