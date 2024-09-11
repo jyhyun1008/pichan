@@ -319,6 +319,9 @@ if (accessToken) {
                                         } else if (responseJSON.conversation == 'negative') {
                                             emotionArray[noteFullUserName] += 0
                                             localStorage.setItem('emotionArray', JSON.stringify(emotionArray))
+                                        } else {
+                                            emotionArray[noteFullUserName] += 1
+                                            localStorage.setItem('emotionArray', JSON.stringify(emotionArray))
                                         }
 
                                         //이모지 판정. 호감도 45이상만 반환.
