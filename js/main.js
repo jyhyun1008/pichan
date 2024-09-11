@@ -38,7 +38,7 @@ if (localStorage.getItem('lastNote')) {
 var emotionArray
 
 if (localStorage.getItem('emotionArray')) {
-    emotion = JSON.parse(localStorage.getItem('emotionArray'))
+    emotionArray = JSON.parse(localStorage.getItem('emotionArray'))
 } else {
     emotionArray = {}
     emotionArray[ADMIN] = 100
