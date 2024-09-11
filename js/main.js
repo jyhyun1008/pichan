@@ -189,7 +189,7 @@ if (accessToken) {
 
                 //유저 호감도, 오늘의 남은 질문 횟수
                 var emotionForUser = 0
-                if (emotionArray[noteFullUserName]) {
+                if (emotionArray[noteFullUserName] !== undefined) {
                     emotionForUser = emotionArray[noteFullUserName]
                 } else {
                     emotionArray[noteFullUserName] = 0
@@ -197,7 +197,7 @@ if (accessToken) {
                 }
 
                 var leftCount = 20
-                if (countArray[noteFullUserName]) {
+                if (countArray[noteFullUserName] !== undefined) {
                     leftCount = countArray[noteFullUserName]
                 } else {
                     countArray[noteFullUserName] = 20
@@ -314,13 +314,13 @@ if (accessToken) {
 
                                         //긍정적인 대화였는지 부정적인 대화였는지 판정한 값으로 호감도 조정
                                         if (responseJSON.conversation == 'positive') {
-                                            emotionArray[noteFullUserName] += 2
+                                            emotionArray[noteFullUserName] = parseInt(emotionArray[noteFullUserName]) + 2
                                             localStorage.setItem('emotionArray', JSON.stringify(emotionArray))
                                         } else if (responseJSON.conversation == 'negative') {
-                                            emotionArray[noteFullUserName] += 0
+                                            emotionArray[noteFullUserName] = parseInt(emotionArray[noteFullUserName]) + 0
                                             localStorage.setItem('emotionArray', JSON.stringify(emotionArray))
                                         } else {
-                                            emotionArray[noteFullUserName] += 1
+                                            emotionArray[noteFullUserName] = parseInt(emotionArray[noteFullUserName]) + 1
                                             localStorage.setItem('emotionArray', JSON.stringify(emotionArray))
                                         }
 
@@ -374,7 +374,7 @@ if (accessToken) {
                                             var replyData = await fetch(replyUrl, replyParam)
                                             var replyRes = await replyData.json()
 
-                                            countArray[noteFullUserName] -= 1
+                                            countArray[noteFullUserName] = parseInt(countArray[noteFullUserName]) - 1
                                             localStorage.setItem('countArray', JSON.stringify(countArray))
 
                                         } catch(error) {
