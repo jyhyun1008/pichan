@@ -152,7 +152,7 @@ if (accessToken) {
 
         if (MentionRes.length == 0) { // 멘션 없는 경우
             setTimeout(() => {
-                location.href = 'https://hiyuno.peacht.art/pichan/'
+                location.href = 'https://page.peacht.art/pichan/'
             }, 20000);
         } else { // 멘션 있는 경우
 
@@ -162,7 +162,7 @@ if (accessToken) {
                 })
 
                 // setTimeout(() => {
-                //     location.href = 'https://hiyuno.peacht.art/pichan/'
+                //     location.href = 'https://page.peacht.art/pichan/'
                 // }, 20000);
             }
 
@@ -476,12 +476,12 @@ if (accessToken) {
     })
     .catch((error) => {
         setTimeout(() => {
-            location.href = 'https://hiyuno.peacht.art/characteridea/'
+            location.href = 'https://page.peacht.art/pichan/'
         }, 20000);
     });
 
     //혼잣말 note
-    if (nownow - lastNoteDate > 3*3600*1000) {
+    if (nownow - lastNoteDate > 5*1800*1000) {
         var scheduleNow = scheduleArray[nownow.getDay()][nownow.getHours()]
         if (scheduleNow !== 'sleep') {
 
@@ -532,7 +532,7 @@ if (accessToken) {
                     .then((res) => {
                         console.log(res)
                         setTimeout(() => {
-                            location.href = 'https://hiyuno.peacht.art/pichan/'
+                            location.href = 'https://page.peacht.art/pichan/'
                         }, 20000);
                     })
                     .catch((error) => console.log(error))
@@ -545,12 +545,12 @@ if (accessToken) {
             lastNoteText = ''
             localStorage.setItem('lastNoteText', '')
             setTimeout(() => {
-                location.href = 'https://hiyuno.peacht.art/pichan/'
+                location.href = 'https://page.peacht.art/pichan/'
             }, 20000);
         }
     } else {
         setTimeout(() => {
-            location.href = 'https://hiyuno.peacht.art/pichan/'
+            location.href = 'https://page.peacht.art/pichan/'
         }, 20000);
     }
 }
