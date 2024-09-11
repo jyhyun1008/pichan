@@ -189,14 +189,14 @@ if (accessToken) {
 
                 //유저 호감도, 오늘의 남은 질문 횟수
                 var emotionForUser = 0
-                if (emotionArray[noteFullUserName]) {
+                if (emotionArray[noteFullUserName] !== undefined) {
                     emotionForUser = emotionArray[noteFullUserName]
                 } else {
                     emotionArray[noteFullUserName] = 0
                 }
 
                 var leftCount = 20
-                if (countArray[noteFullUserName]) {
+                if (countArray[noteFullUserName] !== undefined) {
                     leftCount = countArray[noteFullUserName]
                 } else {
                     countArray[noteFullUserName] = 20
