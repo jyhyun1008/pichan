@@ -35,7 +35,7 @@ if (localStorage.getItem('lastNote')) {
     lastNoteText = localStorage.getItem('lastNoteText')
 }
 
-var emotionArray
+var emotionArray = {}
 
 if (localStorage.getItem('emotionArray')) {
     emotionArray = JSON.parse(localStorage.getItem('emotionArray'))
@@ -44,7 +44,7 @@ if (localStorage.getItem('emotionArray')) {
     emotionArray[ADMIN] = 100
 }
 
-var countArray
+var countArray = {}
 
 if (localStorage.getItem('countArray')) {
     countArray = JSON.parse(localStorage.getItem('countArray'))
@@ -233,7 +233,7 @@ if (accessToken) {
                                     'Authorization': `Bearer `+accessToken,
                                 },
                                 body: JSON.stringify({
-                                    limit: 100,
+                                    limit: 50,
                                     noteId: noteId
                                 }),
                                 credentials: 'omit'
@@ -241,16 +241,16 @@ if (accessToken) {
                             var contextData = await fetch(noteContextUrl, noteContextParam)
                             var contextRes = await contextData.json()
 
-                            for (let cont of contextRes) {
+                            for (let i =0; i< contextRes.length;i++) {
                                 var role = ''
                                 var content = ''
-                                if (cont.user.username == BOT_USERNAME) {
+                                if (contextRes[contextRes.length - i - 1].user.username == BOT_USERNAME) {
                                     role = 'assistant'
                                 } else {
                                     role = 'user'
                                 }
-                                if (cont.text !== null) {
-                                    content = cont.text
+                                if (contextRes[contextRes.length - i - 1].text !== null) {
+                                    content = contextRes[contextRes.length - i - 1].text
                                 } else {
                                     content = ""
                                 }
