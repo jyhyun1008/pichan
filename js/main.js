@@ -189,7 +189,7 @@ if (accessToken) {
 
                 //유저 호감도, 오늘의 남은 질문 횟수
                 var emotionForUser = 0
-                if (emotionArray[noteFullUserName] !== undefined) {
+                if (emotionArray[noteFullUserName]) {
                     emotionForUser = emotionArray[noteFullUserName]
                 } else {
                     emotionArray[noteFullUserName] = 0
@@ -197,7 +197,7 @@ if (accessToken) {
                 }
 
                 var leftCount = 20
-                if (countArray[noteFullUserName] !== undefined) {
+                if (countArray[noteFullUserName]) {
                     leftCount = countArray[noteFullUserName]
                 } else {
                     countArray[noteFullUserName] = 20
@@ -241,7 +241,7 @@ if (accessToken) {
                             var contextData = await fetch(noteContextUrl, noteContextParam)
                             var contextRes = await contextData.json()
 
-                            for await(let cont of contextRes) {
+                            for (let cont of contextRes) {
                                 var role = ''
                                 var content = ''
                                 if (cont.user.username == BOT_USERNAME) {
@@ -251,6 +251,8 @@ if (accessToken) {
                                 }
                                 if (cont.text !== null) {
                                     content = cont.text
+                                } else {
+                                    content = ""
                                 }
                                 msgs.push({"role": role, "content": content})
                             }
