@@ -469,6 +469,30 @@ if (accessToken) {
                             }
                         })
                     }
+                } else {
+
+                    var reply2Url = 'https://'+host+'/api/notes/create'
+                    var reply2Param = {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                            'Authorization': `Bearer `+accessToken,
+                        },
+                        body: JSON.stringify({
+                            replyId: noteId,
+                            text: '일일 멘션 한도가 초과되어 답변을 드릴 수 없습니다!',
+                            visibility: 'home'
+                        }),
+                        credentials: 'omit'
+                    }
+
+                    try {
+                        var reply2Data = await fetch(reply2Url, reply2Param)
+                        var reply2Res = await reply2Data.json()
+                        console.log(reply2Res)
+                    } catch(error) {
+                        console.log(error)
+                    }
                 }
             }
             replyMention(MentionRes)
